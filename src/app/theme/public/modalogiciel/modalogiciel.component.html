@@ -1,0 +1,33 @@
+<div class="modallogiciel">
+    <div class="overley"></div>
+    <div class="modallogicielvue flex">
+
+        <div class="modalimage">
+
+            <img [src]="logiciel?.imagelog" alt="">
+        </div>
+
+
+        <div class="modaldetail ">
+            <div class="modalname">
+                <h2>{{logiciel?.libelleLog}}</h2>
+
+            </div>
+            <div class="modaldescription" style="margin-left: 50px;">
+                <h2>
+                    {{logiciel?.descriptionLog}}
+                </h2> 
+            </div>
+       
+               <button class="btn btn btn-succes" style="align-items:center ;margin-left:60px ;font-weight: bold;color:white;"><a [href]="logiciel?.communauteUrlLog" target="_blank"><i
+                class="bi bi-download"> TELECHARGER</i></a></button>
+            
+           <br>   <br>   <br>
+
+            <button style="align-items: center; margin-left: 200px; border-style: none; text-decoration:underline;"     (click)="closeModal()">fermer </button>
+        </div>
+    </div>
+
+
+</div>
+

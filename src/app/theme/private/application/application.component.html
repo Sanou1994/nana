@@ -1,0 +1,122 @@
+<main class="mt-5 pt-3" style="padding: 10px">
+    <div>
+        <p-card>
+            <!-- ToolBar -->
+            <div class="p-d-flex">
+                <app-crud-toolbar [enableCreate]="enableCreate" (create)="onCreate()">
+                </app-crud-toolbar>
+                <div class="p-ml-auto">
+                    <p-message *ngIf="message" [severity]="message.severity" [text]="message.summary"></p-message>
+                    <p-progressSpinner *ngIf="isOpInProgress" strokeWidth="4" [style]="{width: '50px', height: '50px'}">
+                    </p-progressSpinner>
+                </div>
+            </div>
+            <p-divider></p-divider>
+
+            <p-table #dt [value]="logiciels" [paginator]="true" [rows]="recordsPerPage" [loading]="isLoading"
+                (onLazyLoad)="load($event)" [totalRecords]="totalRecords" [globalFilterFields]="['libelleLog']"
+                currentPageReportTemplate="Affichage {first} à {last} de {totalRecords} élements"
+                [showCurrentPageReport]=true [rowsPerPageOptions]="[10, 20]" styleClass="p-datatable-sm">
+
+                <ng-template pTemplate="caption">
+                    <div class="row">
+                        <div class="col" style="padding: 8px; margin-left: 8px">
+                            <span>Liste des logiciels</span>
+                        </div>
+                        <div class="col text-right">
+                            <span class="p-input-icon-left">
+                                <i class="pi pi-search"></i>
+                                <input pInputText type="text"
+                                    (input)="dt.filterGlobal($any($event.target)!.value, 'contains')"
+                                    placeholder="Recherche..." />
+                            </span>
+                        </div>
+                    </div>
+
+                </ng-template>
+
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="libelleLog">Libelle
+                            <p-sortIcon field="libelleLog"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="descriptionLog">Description
+                            <p-sortIcon field="descriptionLog"></p-sortIcon>
+                        </th>
+                        <th style="width: 15%">Actions</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-logiciel>
+                    <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex" [pContextMenuRow]="logiciel">
+                        <td>{{logiciel.libelleLog}} </td>
+                        <td>{{logiciel.descriptionLog}} </td>
+                        <td style="width: 15%">
+                            <app-actions-toolbal-iud (info)="onInfo(logiciel)" [enableBtnInfo]="enableBtnInfo"
+                                (edit)="onEdit(logiciel)" [enableBtnEdit]="enableBtnEdit" (delete)="onDelete(logiciel)"
+                                [enableBtnDelete]="enableBtnDelete">
+                            </app-actions-toolbal-iud>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-card>
+        <p-dialog [(visible)]="showDialog" [modal]="true" [breakpoints]="{'960px': '75vw', '640px': '100vw'}"
+            [style]="{width: '50vw'}">
+            <ng-template pTemplate="header">
+                <i class="{{isEditing() ? 'pi-pencil' : 'pi-plus'}} pi p-mr-1"></i>
+                <span class="p-mr-auto">
+                    <h4> {{logiciel.id ? 'Modifier' : 'Ajouter'}} un logiciel</h4>
+                </span>
+            </ng-template>
+            <p-progressBar *ngIf="isDialogOpInProgress" mode="indeterminate"></p-progressBar>
+            <p-message *ngIf="dialogErrorMessage" severity="error" [text]="dialogErrorMessage"></p-message>
+            <p-divider></p-divider>
+            <form (ngSubmit)="save()" #dtf="ngForm">
+                <div class="p-fluid p-col-12 col-md-12">
+                    <label for="categorie">Catégorie</label>
+                    <p-dropdown [options]="categories" [(ngModel)]="logiciel.categorie" name="categorie"
+                        placeholder="Selectionner la catégorie dont rélève le logiciel" optionLabel="libelleCat"
+                        inputId="categorie" [filter]="true" filterBy="libelleCat" [showClear]="true"></p-dropdown>
+                </div>
+
+                <div class="p-fluid p-col-12 col-md-12">
+                    <label for="editeur">Editeur</label>
+                    <p-dropdown [options]="editeurs" [(ngModel)]="logiciel.editeur" name="editeur"
+                        placeholder="Selectionner l'éditeur du logiciel" optionLabel="libelleEdi" inputId="editeur"
+                        [filter]="true" filterBy="libelleEdi" [showClear]="true"></p-dropdown>
+                </div>
+
+                <div class="p-fluid p-col-12 col-md-12">
+                    <label for="libelleLog">Libellé</label>
+                    <input id="libelleLog" name="libelleLog" #libelleLog="ngModel" [(ngModel)]="logiciel.libelleLog"
+                        pInputText required />
+                </div>
+
+                <div class="p-fluid p-col-12 col-md-12">
+                    <label for="communauteUrlLog">Lien communauté</label>
+                    <input id="communauteUrlLog" name="communauteUrlLog" #communauteUrlLog="ngModel"
+                        [(ngModel)]="logiciel.communauteUrlLog" pInputText required />
+                </div>
+
+                <div class="p-fluid p-col-12 p-md-12">
+                    <label for="descriptionLog">Description</label>
+                    <textarea [rows]="5" [cols]="50" id="descriptionLog" name="descriptionLog" #descriptionLog="ngModel"
+                        [(ngModel)]="logiciel.descriptionLog" pInputTextarea></textarea>
+                </div>
+                <p-divider></p-divider>
+                <div class="p-ml-auto text-right">
+                    <button type="reset" label="Annuler" (click)="showDialog=false"
+                        class="p-button-raised p-button-text p-button-success mr-2" pButton></button>
+                    <button type="submit" [disabled]="!dtf.form.valid"
+                        label="{{isEditing() ? 'Enregistrer' : 'Ajouter'}}"
+                        icon="pi {{isEditing() ? 'pi-save' : 'pi-plus'}}"
+                        class="p-button-raised p-button-text {{isEditing() ? 'p-button-primary' : 'p-button-success'}}"
+                        pButton>
+                    </button>
+                </div>
+            </form>
+        </p-dialog>
+
+        <app-confirmation></app-confirmation>
+    </div>
+</main>

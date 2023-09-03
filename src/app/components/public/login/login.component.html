@@ -1,0 +1,119 @@
+<!-- <div class="main-div">
+    <div class="container h-100">
+        <div class="login_name_wrapper">
+            <div class="d-flex justify-content-center">CONNECTEZ-VOUS</div>
+        </div>
+        <div class="d-flex justify-content-center h-50" >
+            <div class="user_card">
+                <div class="d-flex justify-content-center">
+                    <div class="login_logo_container"> 
+                        <img src="assets/images/img.jfif" class="login_logo" alt="Logo"> 
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center form_container">
+                    <form style="width: 320px">
+                        <div class="row" [hidden]="erreur">
+                            <div class="col-md-12">
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>Echec !</strong> {{messageErreur}}
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="input-group mb-3">
+                            <div class="input-group-append"> <span class="input-group-text"><i class="pi pi-user"></i></span> </div>
+                            <input id="username" type="text" name="username"  class="form-control input_user" placeholder="Username" required>
+                        </div>
+                        <div class="input-group mb-4">
+                            <div class="input-group-append"> <span class="input-group-text"><i class="pi pi-unlock"></i></span> </div>
+                            <input id="password" type="password" name="password" class="form-control input_pass" placeholder="Password" required>
+                        </div>
+                   <div class="row" [hidden]="spinner">
+                            <div style="text-align: center;" class="col-lg-12 col-md-12 col-sm-12">
+                                <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+                            </div>
+                        </div>
+    
+                        <div class="d-flex justify-content-center mt-3 login_container">
+                            <button type="button" name="button" class="btn login_btn">CONNEXION</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>               -->
+
+<div class="menu">
+
+
+  <div class="logo">
+    <img src="assets/images/sill.jpeg" alt="">
+    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navcol-1"><span
+        class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+  </div>
+  <div class="nav">
+
+    <ul>
+
+      <div class="dropdown">
+        <button class="dropbtn"><a [routerLink]="'/accueil'" (click)="categorie()">CATEGORIE</a></button>
+
+      </div>
+
+
+      <div class="dropdown">
+        <button class="dropbtn"><a [routerLink]="'/logiciels'" (click)="logiciel()">LOGICIEL</a></button>
+
+      </div>
+
+
+
+      <div class="dropdown">
+        <button class="dropbtn"><a [routerLink]="'/login'" (click)="login()">LOGIN</a></button>
+
+      </div>
+
+    </ul>
+  </div>
+</div>
+
+
+
+<div class="main-div">
+  <div class="container h-100">
+    <div class="login_name_wrapper">
+      <div class="d-flex justify-content-center"></div>
+    </div>
+    <div class="d-flex justify-content-center h-50">
+      <div class="user_card">
+        <div class="d-flex justify-content-center">
+          <div class="login_logo_container">
+            <img src="assets/images/sill_logo.png" class="login_logo" alt="Logo">
+          </div>
+        </div>
+        <div class="d-flex justify-content-center form_container">
+          <form style="width: 320px">
+
+            <div class="alert alert-danger" *ngIf="erreur==1">
+              <strong>{{messageError}}</strong>
+            </div>
+
+            <form>
+              <div class="form-group">
+                <label>Nom Utilisateur :</label>
+                <input type="text" name="username" class="form-control" [(ngModel)]="user.login">
+              </div>
+              <div class="form-group">
+                <label>Mot de passe :</label>
+                <input type="password" name="password" [(ngModel)]="user.password" class="form-control">
+              </div><br>
+              <div class="row justify-content-md-center">
+                <button type="button" (click)="onLoggedin()" class="btn btn-success">Connexion</button>
+              </div>
+            </form>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

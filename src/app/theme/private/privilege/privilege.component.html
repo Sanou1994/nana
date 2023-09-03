@@ -1,0 +1,99 @@
+<main class="mt-5 pt-3" style="padding: 10px">
+    <div>
+         <p-card>
+         
+            <div class="p-d-flex">
+                <app-crud-toolbar [enableCreate]="enableCreate" (create)="onCreate()">
+                </app-crud-toolbar>
+                <div class="p-ml-auto">
+                    <p-message *ngIf="message" [severity]="message.severity" [text]="message.summary"></p-message>
+                    <p-progressSpinner *ngIf="isOpInProgress" strokeWidth="4" [style]="{width: '50px', height: '50px'}">
+                    </p-progressSpinner>
+                </div>
+            </div>
+            <p-divider></p-divider>
+
+            <p-table #dt [value]="privileges" [paginator]="true" [rows]="recordsPerPage" [loading]="isLoading" (onLazyLoad)="load($event)" [totalRecords]="totalRecords" [globalFilterFields]="['login_uti']" currentPageReportTemplate="Affichage {first} à {last} de {totalRecords} élements"
+                [showCurrentPageReport]=true [rowsPerPageOptions]="[10, 20]" styleClass="p-datatable-sm">
+
+                <ng-template pTemplate="caption">
+                    <div class="row">
+                        <div class="col" style="padding: 8px; margin-left: 8px">
+                            <span>Liste des privilèges</span>
+                        </div>
+                        <div class="col text-right">
+                            <span class="p-input-icon-left">
+                                <i class="pi pi-search"></i>
+                                <input pInputText type="text" (input)="dt.filterGlobal($any($event.target)!.value, 'contains')"
+                                placeholder="Recherche..." />
+                            </span>
+                        </div>
+                    </div>
+
+                </ng-template>
+
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="nom_uti">privilege
+                            <p-sortIcon field="nom_uti"></p-sortIcon>
+                        </th>
+
+                 
+                        
+                        <th>Actions</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-privilege>
+                    <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex" [pContextMenuRow]="privilege">
+                        <td>{{privilege.lister_priv}} </td> 
+                     
+
+                        <td>
+                            <app-actions-toolbal-iud (info)="onInfo(privilege)" [enableBtnInfo]="enableBtnInfo" (edit)="onEdit(privilege)" [enableBtnEdit]="enableBtnEdit" (delete)="onDelete(privilege)" [enableBtnDelete]="enableBtnDelete">
+                            </app-actions-toolbal-iud>
+                        </td> 
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-card> 
+        <p-dialog [(visible)]="showDialog" [modal]="true" [breakpoints]="{'500px': '75vw', '640px': '100vw'}" [style]="{width: '50vw'}">
+            <ng-template pTemplate="header">
+                <i class="{{isEditing() ? 'pi-pencil' : 'pi-plus'}} pi p-mr-1"></i>
+                <span class="p-mr-auto"><h4> {{privilege.id ? 'Modifier' : 'Ajouter'}} Privilèges</h4>
+                </span>
+            </ng-template>
+            <p-progressBar *ngIf="isDialogOpInProgress" mode="indeterminate"></p-progressBar>
+            <p-message *ngIf="dialogErrorMessage" severity="error" [text]="dialogErrorMessage"></p-message>
+            <form (ngSubmit)="save()" #dtf="ngForm">
+                <br>
+                <div class="grid p-fluid">
+                  
+                    
+                </div>
+                <br>
+                <div class="p-fluid grid">
+                    <div class="p-fluid p-col-10 col-md-12">
+                        <label for="selectedProfil">Profil utilisateur</label>
+                        <p-dropdown [options]="profil_utilisateur" name="selectedProfil" placeholder="Choisir le profil utilisateur" optionLabel="libelle_pro" inputId="selectedProfil" [showClear]="true"></p-dropdown>                
+                    </div>
+                
+         <br/>
+         <br/>
+                    <div class="p-fluid p-col-6 col-md-12">
+                        <label for="ajouter_priv">Ajouter Privilège</label>
+                        <input id="ajouter_priv" name="ajouter_priv" #libelle="ngModel" [(ngModel)]="privilege.ajouter_priv" pInputText required />
+                    </div>
+                    
+                </div>
+                <br>
+                <p-divider></p-divider>
+                <div class="p-ml-auto text-right">
+                    <button type="reset" label="Annuler" (click)="showDialog=false" class="p-button-raised p-button-text p-button-success mr-2" pButton></button>
+                    <button type="submit" [disabled]="!dtf.form.valid" label="{{isEditing() ? 'Enregistrer' : 'Ajouter'}}" icon="pi {{isEditing() ? 'pi-save' : 'pi-plus'}}" class="p-button-raised p-button-text {{isEditing() ? 'p-button-primary' : 'p-button-success'}}" pButton>
+                    </button>
+                </div>
+            </form>
+        </p-dialog>
+        <app-confirmation></app-confirmation>
+    </div>
+</main>

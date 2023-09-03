@@ -1,0 +1,26 @@
+<!--<div class="inkindonations-selector">
+
+  <div id="selector-row">
+
+    <form class="d-flex" style="width: 80%">
+
+      <div class="search">
+
+        <p-dropdown [options]="logiciels" name="selectedLogiciel" [filter]="true" placeholder="Choisir le logiciel"
+          optionLabel="libelleLog" inputId="selectedLogiciel" [showClear]="true"></p-dropdown>
+
+      </div>
+    </form>
+  </div>
+</div> -->
+
+
+<!-- logic --
+
+  <div class="logic-list">
+  <app-logic *ngFor="let logiciel of logiciels" [logiciel]="logiciel"
+    (DisplayLogicielModal)="handleDisplayLogicielModal($event)"> </app-logic>
+</div>
+!--fin logic -->
+
+

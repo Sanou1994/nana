@@ -1,0 +1,104 @@
+<div class="inkindonations-selector">
+    <div id="selector-row">
+        <fieldset>Categories:
+            <select class="selectpicker" data-live-search="true" (input)="loadSousCategorie($event)"
+                searchLogiciel="true" [(ngModel)]="searchLogiciel" style="width: 250px; height: 40px;">
+                <option *ngFor="let categorie of categories" data-tokens="ketchup base">{{categorie.libelleCat}}
+                </option>
+            </select>
+        </fieldset>
+        <fieldset> sous Categories:
+            <select class="selectpicker" data-live-search="true" searchLogiciel="true" [(ngModel)]="searchLogiciel"
+                style="width: 300px; height: 40px;">
+                <option *ngFor="let categorie of sousCategories" data-tokens="ketchup base">{{categorie.libelleCat}}
+                </option>
+            </select>
+
+        </fieldset>
+
+    </div>
+</div>
+
+<div class="form-outline mb-4 " style=" display: flex;align-items: center;justify-content: center;">
+    <input type="search" class="form-control" id="datatable-search-input" name="search" [(ngModel)]="searchLogiciel"
+        placeholder="Recherche logiciels.." style="width: 400px; margin-top: 25px; ">
+</div>
+
+<div class="cont">
+    <div class="logic-list">
+        <div class="logic flex " *ngFor="let logiciel of logiciells | filter:searchLogiciel">
+
+            <ng-template #content let-modal>
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modal-basic-title">Détail Logiciel</h4>
+
+                    <button class="btn close btn-outline-primary" height="40%" width="20%" aria-label="Close"
+                        (click)="modal.dismiss('Cross click')"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body">
+                    <p>{{logiciel?.descriptionLog}}</p>
+                </div>
+                <div class="modal-footer">
+                    <div>
+                        <a class="btn  btn-outline-primary" height="40%" width="20%" [href]="logiciel?.communauteUrlLog"
+                            target="_blank"><i class="bi bi-download">
+                                TELECHARGER</i></a>
+                    </div>
+                </div>
+            </ng-template>
+
+
+            <!-- Offcanvas Sidebar -->
+            <div class="logiciel-img  aic">
+                <img [src]="generateSafeImageUrl(logiciel?.imagelog)" alt="placeholder" height="40" width="200">
+
+            </div>
+            <div class="logiciel-detail p-2">
+                <div class="logiciel-name ">
+                    <h5>{{logiciel?.libelleLog}} </h5>
+                </div>
+
+                <div class="logiciel-version">
+                    <p>{{logiciel?.versionlog}}</p>
+                </div>
+                <div class="logiciel-editeur">
+                    <p>{{logiciel?.editeurlog}}</p>
+                </div>
+                <div class="categorie">
+                    <p>{{logiciel?.type}}</p>
+                </div>
+                <div>
+                    <a class="btn  btn-outline-primary" height="40%" width="20%" [href]="logiciel?.communauteUrlLog"
+                        target="_blank"><i class="bi bi-download">
+                            TELECHARGER</i></a>
+                </div>
+            </div>
+            <div class="logiciel-img  aic">
+                <button class="btn  btn-outline-primary rounded-circle" height="40%" width="20%"
+                    (click)="open(content)">Voir
+                    +</button>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="row">
+        <div class="col md-12 d-flex justify-content-center">
+
+            <div class="btn-group flot-left">
+                <button class="btn btn-outline-primary " (click)="precedant()"> <i
+                        class="bi bi-chevron-double-left">Précédent</i></button>
+            </div>
+            <div class="px-6">
+                <p> {{selectedpage}} / {{PageNumbers.length}}</p>
+            </div>
+            <div class="btn-group flot-right">
+                <button class="btn btn-outline-primary " (click)="suivant()">Suivant <i
+                        class="bi bi-chevron-double-right"></i></button>
+            </div>
+        </div>
+    </div>
+</div>

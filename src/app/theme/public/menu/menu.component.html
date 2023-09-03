@@ -1,0 +1,269 @@
+<div class="menu">
+
+
+  <div class="logo">
+    <img src="assets/images/sill.jpeg" alt="">
+    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navcol-1"><span
+        class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+  </div>
+  <div class="nav">
+
+    <ul>
+
+      
+     
+      
+        <div class="dropdowns">
+          <button class="dropbtn"><a [routerLink]="'/categorie'" (click)="accueil()">CATEGORIE </a>
+
+          </button>
+        </div>
+     
+
+      <div class="dropdown">
+        <button class="dropbtn"><a [routerLink]="'/login'" (click)="login()">LOGIN</a></button>
+
+      </div>
+
+    </ul>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<nav style="background-color: #650103" class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+      <img src="assets/images/sill.jpeg" alt="" class="logo"  style="border-radius:40%;width:5%;">
+      &nbsp; !--a class="navbar-brand" href="#">Socle Interministériel des Logiciels Libres du Burkina Faso</a-->
+<!--<h3>Socle Interministériel des Logiciels Libres du Burkina Faso</h3>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          !-- <li class="nav-item">
+            <a class="nav-link active" href="#">Link</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Dropdown
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Dropdown
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </li>--
+          <li class="nav-item">
+            <a class="nav-link" (click)="login()"  ><img src="assets/images/img.jfif" alt="" class="logo"    style="border-radius:40%;width:15%;float: right;"></a>
+          </li> 
+        </ul>
+      </div>
+    </div>
+</nav> 
+
+
+
+
+  !-- Navbar --<header>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <div class="container-fluid">
+      <button
+        class="navbar-toggler"
+        type="button"
+        
+        aria-controls="backgroundImageExample"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <i class="fas fa-bars"></i>
+      </button>
+      <div
+        mdbCollapse
+        #backgroundImageExample=""
+        class="collapse navbar-collapse"
+        id="backgroundImageExample"
+      >
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item active">
+            <a class="nav-link" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Features</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Pricing</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  Navbar -->
+
+<!-- Background image --
+  <div
+    class="p-5 text-center bg-image"
+    style="
+      background-image: url('https://mdbootstrap.com/img/new/slides/041.webp');
+      height: 400px;
+    "
+  >
+    <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
+      <div class="d-flex justify-content-center align-items-center h-100">
+        <div class="text-white">
+          <h1 class="mb-3">Heading</h1>
+          <h4 class="mb-3">Subheading</h4>
+          <a class="btn btn-outline-light btn-lg" href="#!" role="button"
+            >Call to action</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+   
+</header>Background image --
+
+
+<header>
+
+  <nav class="navbar navbar-expand-lg fixed-top navbar-scroll">
+    <div class="container-fluid">
+      <button
+              class="navbar-toggler ps-0"
+              type="button"
+              data-mdb-toggle="collapse"
+              data-mdb-target="#navbarExample01"
+              aria-controls="navbarExample01"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+              >
+        <span
+              class="navbar-toggler-icon d-flex justify-content-start align-items-center"
+              >
+          <i class="fas fa-bars"></i>
+        </span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarExample01">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item active">
+            <a class="nav-link" aria-current="page" href="#intro">Home</a>
+          </li>
+          <li class="nav-item">
+            <a
+               class="nav-link"
+               href="https://www.youtube.com/channel/UC5CF7mLQZhvx8O5GODZAhdA"
+               rel="nofollow"
+               target="_blank"
+               >Learn Bootstrap 5</a
+              >
+          </li>
+          <li class="nav-item">
+            <a
+               class="nav-link"
+               href="https://mdbootstrap.com/docs/standard/"
+               target="_blank"
+               >Download MDB UI KIT</a
+              >
+          </li>
+        </ul>
+
+        <ul class="navbar-nav flex-row">
+         Icons 
+          <li class="nav-item">
+            <a
+               class="nav-link pe-2"
+               href="https://www.youtube.com/channel/UC5CF7mLQZhvx8O5GODZAhdA"
+               rel="nofollow"
+               target="_blank"
+               >
+              <i class="fab fa-youtube"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+               class="nav-link px-2"
+               href="https://www.facebook.com/mdbootstrap"
+               rel="nofollow"
+               target="_blank"
+               >
+              <i class="fab fa-facebook-f"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+               class="nav-link px-2"
+               href="https://twitter.com/MDBootstrap"
+               rel="nofollow"
+               target="_blank"
+               >
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+               class="nav-link ps-2"
+               href="https://github.com/mdbootstrap/mdb-ui-kit"
+               rel="nofollow"
+               target="_blank"
+               >
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+   Animated navbar -->
+
+<!-- Background image -
+  <div
+       id="intro"
+       class="bg-image"
+       style="
+              background-image: url(https://mdbcdn.b-cdn.net/img/new/fluid/city/113.jpg);
+              height: 100vh;
+              "
+       >
+    <div class="mask text-white" style="background-color: rgba(0, 0, 0, 0.8)">
+      <div class="container d-flex align-items-center text-center h-100">
+        <div>
+          
+          <h1 class="mb-5">
+          </h1>
+        </div>
+      </div>
+    </div>
+  </div>
+   Background image 
+</header>
+
+
+<div class="container my-5">
+  <p> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nobis quam minima perspiciatis eos tenetur. Praesentium dolores at quos aperiam sed, sint provident consectetur incidunt, nostrum porro earum commodi, ex architecto.</p>
+
+</div>-Main Navigation-->

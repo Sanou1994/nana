@@ -1,0 +1,170 @@
+
+element.style {
+  height: 600px;
+}
+
+.clean-block.slider {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.clean-block.dark {
+  background-color: #f6f6f6;
+}
+
+@media (min-width: 576px) {
+  .clean-block {
+    padding-bottom: 100px;
+  }
+}
+
+.clean-block {
+  padding-bottom: 50px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+element.style {
+  height: 600px;
+}
+
+.clean-block.slider {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.clean-block.dark {
+  background-color: #f6f6f6;
+}
+
+@media (min-width: 576px) {
+  .clean-block {
+    padding-bottom: 100px;
+  }
+}
+
+.clean-block {
+  padding-bottom: 50px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+element.style {
+  height: 300px;
+  width: 1400px;
+  color: var(--bs-blue);
+}
+
+img, svg {
+  vertical-align: middle;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+  .clean-block.clean-info {
+ 
+        flex-wrap: wrap;
+
+      }
+
+     
+    }
+  
+
+
+.clean-block.clean-info {
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: center;
+}
+
+.clean-block.dark {
+  background-color: #fff;
+}
+
+@media (min-width: 576px) {
+  .clean-block {
+    padding-bottom: 100px;
+  }
+}
+
+.clean-block {
+  padding-bottom: 50px;
+}
+
+element.style {
+  margin-right: 10px;
+  margin-left: 10px;
+  border-style: none;
+}
+
+.align-items-center {
+  align-items: center !important;
+}
+
+.row {
+  --bs-gutter-x: 1.5rem;
+  --bs-gutter-y: 0;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: calc(-1 * var(--bs-gutter-y));
+  margin-right: calc(-.5 * var(--bs-gutter-x));
+  margin-left: calc(-.5 * var(--bs-gutter-x));
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+  .clean-block.clean-info {
+    padding-left: 0px;
+    padding-right: 0px;
+    text-align: inherit;
+  }
+}
+
+
+.clean-block.clean-info {
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: center;
+}
+
+
+@media (min-width: 768px) {
+  .col-md-6 {
+    flex: 0 0 auto;
+    width: 50%;
+  }
+}
+
+
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+
+@media (min-width: 768px) {
+  .clean-block.clean-info {
+    padding-left: 0px;
+    padding-right: 0px;
+    text-align: inherit;
+  }
+}
+
+.clean-block.clean-info {
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: center;
+}
+
+

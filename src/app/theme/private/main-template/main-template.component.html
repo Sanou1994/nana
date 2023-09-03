@@ -1,0 +1,167 @@
+<!-- nav-bar -->
+<nav style="background-color: #233588" class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container-fluid">
+        <!-- offcanvas-trigger -->
+        <button class="navbar-toggler me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- offcanvas-trigger -->
+        <a class="navbar-brand me-auto text-uppercase">sill-admin</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+            <ul class="navbar-nav mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-person-fill"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="" data-bs-toggle="modal" data-bs-target="#parametre"><span><i class="bi bi-gear"></i></span> Paramètres</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item"  [routerLink]="'/login'" (click)="login()" ><span><i class="bi bi-power"></i></span> Déconnexion</a></li>
+                </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+    
+<!-- offcanvas -->
+<div class="offcanvas offcanvas-start sidebar-nav bg-dark text-white" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-body p-0">
+        <nav class="navbar-dark">
+            <ul class="navbar-nav">
+                <li>
+                    <br>
+                    <div class="text-muted small fw-bold text-uppercase px-3"  style="color: #fff;">
+                        home
+                    </div>
+                
+                </li>
+                <li [routerLinkActive]="'active'">
+                    <a style="cursor: pointer;" class="nav-link px-5" [routerLink]="'/admin/dashboard'" (click)="dashboard()">
+                        <span class="me-3">
+                            <i class="bi bi-speedometer2" style="color: #fff;"></i>
+                        </span>
+                        <span  style="color: #fff;">
+                            Tableau de bord
+                        </span>
+                    </a>
+                </li>
+                <li class="my-3">
+                    <div class="dropdown-divider" style="border-color:rgb(255, 255, 255);"></div>
+                </li>
+                <li>
+                    <div class="text-muted small fw-bold text-uppercase px-3"  style="font-weight:bold ; color: #fff;">
+                        Gestion des utilisateurs
+                    </div>
+                    <br>
+                </li>
+                <li [routerLinkActive]="'active'">
+                    <a style="cursor: pointer;" [routerLink]="'/admin/utilisateur'" class="nav-link px-5" (click)="utilisateur()">
+                        <span class="me-3">
+                            <i class="bi bi-person-fill" style="color: #fff;"></i>
+                        </span>
+                        <span  style="color: #fff;">
+                            Utilisateurs
+                        </span>
+                    </a>
+                </li>
+                <li [routerLinkActive]="'active'">
+                    <a style="cursor: pointer;"[routerLink]="'/admin/profil-utilisateur'" class="nav-link px-5" (click)=" utilisateurProfil()">
+                        <span class="me-3">
+                            <i class="bi bi-person-fill" style="color: #fff;"></i>
+                        </span>
+                        <span  style="color: #fff;"> 
+                            Profils
+                        </span>
+                    </a>
+                </li>
+               <!-- <li [routerLinkActive]="'active'">
+                    <a style="cursor: pointer;" [routerLink]="'/admin/privilege'" class="nav-link px-5" (click)="privilege()">
+                        <span class="me-3">
+                            <i class="bi bi-boxes"></i>
+                        </span>
+                        <span>
+                            Privilèges
+                        </span>
+                    </a>
+                </li>-->
+
+                <li class="my-3">
+                    <div class="dropdown-divider" style="border-color:rgb(255, 255, 255);"></div>
+                </li>
+                <li>
+                    <div class="text-muted small fw-bold text-uppercase px-3"  style="color: #fff;">
+                        Gestion des Logiciels
+                    </div>
+                <li [routerLinkActive]="'active'">
+                    <a style="cursor: pointer;" [routerLink]="'/admin/categorie'" class="nav-link px-5" (click)="category()">
+                        <span class="me-3">
+                            <i class="bi bi-boxes" style="color: #fff;"></i>
+                        </span>
+                        <span  style="color: #fff;">
+                            Catégories
+                        </span>
+                    </a>
+                </li>
+                <li [routerLinkActive]="'active'">
+                    <a style="cursor: pointer;" [routerLink]="'/admin/logiciel'" class="nav-link px-5" (click)="logiciel()">
+                        <span class="me-3">
+                            <i class="bi bi-gear-fill" style="color: #fff;"></i>
+                        </span>
+                        <span  style="color: #fff;">
+                            Logiciels
+                        </span>
+                    </a>
+                </li>
+                <li [routerLinkActive]="'active'">
+                    <a style="cursor: pointer;" [routerLink]="'/admin/version'" class="nav-link px-5" (click)="version()" >
+                        <span class="me-3">
+                            <i class="bi bi-layers" style="color: #fff;"></i>
+                        </span>
+                        <span style="color: #fff;">
+                            Versions
+                        </span>
+                    </a>
+                </li>
+                <li [routerLinkActive]="'active'">
+                    <a style="cursor: pointer;" [routerLink]="'/admin/compatibilite-os'" class="nav-link px-5" (click)="compatibiliteOS()">
+                        <span class="me-3">
+                            <i class="bi bi-nut" style="color: #fff;"></i>
+                        </span>
+                        <span  style="color: #fff;">
+                            OS Compatibles
+                        </span>
+                    </a>
+                </li>
+                <li [routerLinkActive]="'active'">
+                    <a style="cursor: pointer;" [routerLink]="'/admin/editeur'" class="nav-link px-5" (click)="editeur()">
+                        <span class="me-3">
+                            <i class="bi bi-boxes" style="color: #fff;"></i>
+                        </span>
+                        <span  style="color: #fff;">
+                            Editeurs
+                        </span>
+                    </a>
+                </li>
+               <!--<li [routerLinkActive]="'active'">
+                    <a style="cursor: pointer;" [routerLink]="'/admin/telechargement'" class="nav-link px-5" (click)="utiliteLogiciel()">
+                        <span class="me-3">
+                            <i class="bi bi-boxes"></i>
+                        </span>
+                        <span>
+                            Telechargements
+                        </span>
+                    </a>
+                </li>--> 
+            </ul>
+        </nav>
+    </div> 
+</div>
+
+<router-outlet></router-outlet>
+
+    
+

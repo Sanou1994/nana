@@ -1,0 +1,100 @@
+<main class="mt-5 pt-3" style="padding: 10px">
+    <div>
+        <p-card>
+            <!-- ToolBar -->
+            <div class="p-d-flex">
+                <app-crud-toolbar [enableCreate]="enableCreate" (create)="onCreate()">
+                </app-crud-toolbar>
+                <div class="p-ml-auto">
+                    <p-message *ngIf="message" [severity]="message.severity" [text]="message.summary"></p-message>
+                    <p-progressSpinner *ngIf="isOpInProgress" strokeWidth="4" [style]="{width: '50px', height: '50px'}">
+                    </p-progressSpinner>
+                </div>
+            </div>
+            <p-divider></p-divider>
+
+            <p-table #dt [value]="listcompatibiliteOS" [paginator]="true" [rows]="recordsPerPage" [loading]="isLoading" (onLazyLoad)="load($event)" [totalRecords]="totalRecords" [globalFilterFields]="['nomOS', 'architectureCos', 'langueCos']" currentPageReportTemplate="Affichage {first} à {last} de {totalRecords} élements"
+                [showCurrentPageReport]=true [rowsPerPageOptions]="[10, 20]" styleClass="p-datatable-sm">
+
+                <ng-template pTemplate="caption">
+                    <div class="row">
+                        <div class="col" style="padding: 8px; margin-left: 8px">
+                            <span>Liste des systèmes d'exploitation</span>
+                        </div>
+                        <div class="col text-right">
+                            <span class="p-input-icon-left">
+                                <i class="pi pi-search"></i>
+                                <input pInputText type="text" (input)="dt.filterGlobal($any($event.target)!.value, 'contains')"
+                                placeholder="Recherche..." />
+                            </span>
+                        </div>
+                    </div>
+
+                </ng-template>
+
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="nomCos">Intitulé
+                            <p-sortIcon field="nomCos"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="architectureCos">Architecture
+                            <p-sortIcon field="architectureCos"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="langueCos">Langue
+                            <p-sortIcon field="langueCos"></p-sortIcon>
+                        </th>
+                        <th style="width: 15%">Actions</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-compatibiliteOS>
+                    <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex" [pContextMenuRow]="compatibiliteOS">
+                        <td>{{compatibiliteOS.nomOS}} </td>
+                        <td>{{compatibiliteOS.architectureOS}} </td>
+                        <td>{{compatibiliteOS.langue}} </td>
+                        <td style="width: 15%">
+                            <app-actions-toolbal-iud (info)="onInfo(compatibiliteOS)" [enableBtnInfo]="enableBtnInfo" (edit)="onEdit(compatibiliteOS)" [enableBtnEdit]="enableBtnEdit" (delete)="onDelete(compatibiliteOS)" [enableBtnDelete]="enableBtnDelete">
+                            </app-actions-toolbal-iud>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-card>
+        <p-dialog [(visible)]="showDialog" [modal]="true" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '50vw'}">
+            <ng-template pTemplate="header">
+                <i class="{{isEditing() ? 'pi-pencil' : 'pi-plus'}} pi p-mr-1"></i>
+                <span class="p-mr-auto"><h4> {{compatibiliteOS.id ? 'Modifier' : 'Ajouter'}} un système d'exploitation</h4>
+                </span>
+            </ng-template>
+            <p-progressBar *ngIf="isDialogOpInProgress" mode="indeterminate"></p-progressBar>
+            <p-message *ngIf="dialogErrorMessage" severity="error" [text]="dialogErrorMessage"></p-message>
+            <p-divider></p-divider>
+            <form (ngSubmit)="save()" #dtf="ngForm">
+                <div class="p-fluid grid">
+                    <div class="p-fluid p-col-12 col-md-12">
+                        <label for="nomCos">Intitulé</label>
+                        <input id="nomCos" name="nomCos" #nomCos="ngModel" [(ngModel)]="compatibiliteOS.nomCos" pInputText required />
+                    </div>
+                </div>
+                <div class="p-fluid grid">
+                    <div class="p-fluid p-col-12 col-md-12">
+                        <label for="architectureCos">Architecture</label>
+                        <input id="architectureCos" name="architectureCos" #architectureCos="ngModel" [(ngModel)]="compatibiliteOS.architectureCos" pInputText required />
+                    </div>
+                </div>
+                <div class="p-fluid grid">
+                    <div class="p-fluid p-col-12 col-md-12">
+                        <label for="langueCos">Langue</label>
+                        <input id="langueCos" name="langueCos" #langueCos="ngModel" [(ngModel)]="compatibiliteOS.langueCos" pInputText required />
+                    </div>
+                </div>
+                <p-divider></p-divider>
+                <div class="p-ml-auto text-right">
+                    <button type="reset" label="Annuler" (click)="showDialog=false" class="p-button-raised p-button-text p-button-success mr-2" pButton></button>
+                    <button type="submit" [disabled]="!dtf.form.valid" label="{{isEditing() ? 'Enregistrer' : 'Ajouter'}}" icon="pi {{isEditing() ? 'pi-save' : 'pi-plus'}}" class="p-button-raised p-button-text {{isEditing() ? 'p-button-primary' : 'p-button-success'}}" pButton>
+                    </button>
+                </div>
+            </form>
+        </p-dialog>
+        <app-confirmation></app-confirmation>
+    </div>
+</main>

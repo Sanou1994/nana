@@ -1,0 +1,174 @@
+<main class="mt-5 pt-3" style="padding: 10px">
+    <div>
+        <p-card>
+            <!-- ToolBar -->
+            <div class="p-d-flex">
+                <app-crud-toolbar [enableCreate]="enableCreate" (create)="onCreate()">
+                </app-crud-toolbar>
+                <div class="p-ml-auto">
+                    <p-message *ngIf="message" [severity]="message.severity" [text]="message.summary"></p-message>
+                    <p-progressSpinner *ngIf="isOpInProgress" strokeWidth="4" [style]="{width: '50px', height: '50px'}">
+                    </p-progressSpinner>
+                </div>
+            </div>
+            <p-divider></p-divider>
+
+            <p-table #dt [value]="versions" [paginator]="true" [rows]="recordsPerPage" [loading]="isLoading"
+                (onLazyLoad)="load()" [totalRecords]="totalRecords"
+                [globalFilterFields]="['numeroVer', 'dateVer', 'licenceVer']"
+                currentPageReportTemplate="Affichage {first} à {last} de {totalRecords} élements"
+                [showCurrentPageReport]=true [rowsPerPageOptions]="[10, 20]" styleClass="p-datatable-sm">
+
+                <ng-template pTemplate="caption">
+                    <div class="row">
+                        <div class="col" style="padding: 8px; margin-left: 8px">
+                            <span>Liste des versions de Logiciels</span>
+                        </div>
+                        <div class="col text-right">
+                            <span class="p-input-icon-left">
+                                <i class="pi pi-search"></i>
+                                <input pInputText type="text"
+                                    (input)="dt.filterGlobal($any($event.target)!.value, 'contains')"
+                                    placeholder="Recherche..." />
+                            </span>
+                        </div>
+                    </div>
+
+                </ng-template>
+
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="numeroVer">Numero
+                            <p-sortIcon field="numeroVer"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="dateVer">Date
+                            <p-sortIcon field="dateVer"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="licenceVer">licence versions
+                            <p-sortIcon field="licenceVer"></p-sortIcon>
+                        </th>
+                        <th style="width: 15%">Actions</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-version>
+                    <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex" [pContextMenuRow]="version">
+                        <td>{{version.numeroVer}} </td>
+                        <td>{{version.dateVer| date:'dd/MM/yyyy'}} </td>
+                        <td>{{version.licenceVer}} </td>
+                        <td style="width: 15%">
+                            <app-actions-toolbal-iud (info)="onInfo(version)" [enableBtnInfo]="enableBtnInfo"
+                                (edit)="onEdit(version)" [enableBtnEdit]="enableBtnEdit" (delete)="onDelete(version)"
+                                [enableBtnDelete]="enableBtnDelete">
+                            </app-actions-toolbal-iud>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-card>
+        <p-dialog [(visible)]="showDialog" [modal]="true" [breakpoints]="{'960px': '75vw', '640px': '100vw'}"
+            [style]="{width: '50vw'}">
+            <ng-template pTemplate="header">
+                <i class="{{isEditing() ? 'pi-pencil' : 'pi-plus'}} pi p-mr-1"></i>
+                <span class="p-mr-auto">
+                    <h4> {{version.id ? 'Modifier' : 'Ajouter'}} une version</h4>
+                </span>
+            </ng-template>
+            <p-progressBar *ngIf="isDialogOpInProgress" mode="indeterminate"></p-progressBar>
+            <p-message *ngIf="dialogErrorMessage" severity="error" [text]="dialogErrorMessage"></p-message>
+            <p-divider></p-divider>
+            <form (ngSubmit)="save()" #dtf="ngForm">
+                <div class="p-fluid grid">
+                    <div class="p-fluid p-col-12 col-md-12">
+                        <label for="selectedVersion">Logiciels</label>
+                        <p-dropdown [options]="logiciels" [(ngModel)]="version.logiciel" name="LogicielID"
+                            [filter]="true" placeholder="Choisir le logiciel" optionLabel="libelleLog"
+                            inputId="LogicielID" [showClear]="true"></p-dropdown>
+                    </div>
+                    <div class="p-fluid p-col-12 col-md-6">
+                        <label for="numeroVer">Numero version</label>
+                        <input pInputText class="form-control" name="numeroVer" #numeroVer="ngModel"
+                            [(ngModel)]="version.numeroVer" required />
+                    </div>
+                    <div class="p-fluid p-col-12 col-md-6">
+                        <label for="licenceVer">Licence version </label>
+                        <input id="licenceVer" name="licenceVer" class="form-control" #licenceVer="ngModel"
+                            [(ngModel)]="version.licenceVer" pInputText required />
+                    </div>
+
+                    <div class="p-fluid p-col-12 col-md-12">
+                        <label for="lienTelechVer">Lien telechargement</label>
+                        <input id="lienTelechVer" name="lienTelechVer" class="form-control" #lienTelechVer="ngModel"
+                            [(ngModel)]="version.lienTelechVer" pInputText required />
+                    </div>
+
+
+                    <div class="p-fluid p-col-12 col-md-12">
+                        <label for="lienCodeSourceVer">Lien Code Source</label>
+                        <input id="lienCodeSourceVer" class="form-control" name="lienCodeSourceVer"
+                            #lienCodeSourceVer="ngModel" [(ngModel)]="version.lienCodeSourceVer" pInputText required />
+                    </div>
+
+                    <div class="p-fluid p-col-12 col-md-12">
+                        <label for="logoVer">Logo version </label>
+                        <input type="file" id="logoVerFile" enctype="multipart/form-data" (change)="selectFile($event)"
+                            name="logoVerFile" pInputText />
+                    </div>
+
+                    <div class="p-fluid p-col-12 col-md-6">
+                        <label for="dateInscriptionVer">Date inscription</label>
+                        <input type="date" id="dateInscriptionVer" class="form-control" name="dateInscriptionVer"
+                            #dateInscriptionVer="ngModel" [(ngModel)]="version.dateInscriptionVer" pInputText
+                            required />
+                    </div>
+                    <div class="p-fluid p-col-12 col-md-6">
+                        <label for="dateVer">Date version</label>
+                        <input type="date" id="dateVer" name="dateVer" class="form-control" #dateVer="ngModel"
+                            [(ngModel)]="version.dateVer" pInputText required />
+                    </div>
+
+                    <div class="p-fluid p-col-12 col-md-12">
+                        <label for="tailleVer">Taille Version</label>
+                        <input id="tailleVer" name="tailleVer" class="form-control" #tailleVer="ngModel"
+                            [(ngModel)]="version.tailleVer" type="number" required />
+                    </div>
+
+                    <div class="p-fluid p-col-12 col-md-12">
+                        <label for="lienDocVer">Lien Document</label>
+                        <input id="lienDocVer" name="lienDocVer" class="form-control" #lienDocVer="ngModel"
+                            [(ngModel)]="version.lienDocVer" pInputText required />
+                    </div>
+
+                    <div class="p-fluid p-col-12 col-md-6">
+                        <label for="formaTelechVer">Format de la version téléchargée</label>
+                        <input id="formaTelechVer" name="formaTelechVer" class="form-control" #formaTelechVer="ngModel"
+                            [(ngModel)]="version.formaTelechVer" pInputText required />
+                    </div>
+                    <div class="p-fluid p-col-12 col-md-6">
+                        <label for="langueVer">Langue de la version</label>
+                        <input id="langueVer" name="langueVer" class="form-control" #langueVer="ngModel"
+                            [(ngModel)]="version.langueVer" pInputText required />
+                    </div>
+
+
+                    <div class="p-fluid p-col-12 col-md-12">
+                        <label for="prerequisVer">Prerequis</label>
+                        <textarea [rows]="3" [cols]="50" id="prerequisVer" name="prerequisVer" #prerequisVer="ngModel"
+                            [(ngModel)]="version.prerequisVer" pInputText required></textarea>
+                    </div>
+                </div>
+                <p-divider></p-divider>
+                <div class="p-ml-auto text-right">
+                    <button type="reset" label="Annuler" (click)="showDialog=false"
+                        class="p-button-raised p-button-text p-button-success mr-2" pButton></button>
+                    <button type="submit" [disabled]="!dtf.form.valid"
+                        label="{{isEditing() ? 'Enregistrer' : 'Ajouter'}}"
+                        icon="pi {{isEditing() ? 'pi-save' : 'pi-plus'}}"
+                        class="p-button-raised p-button-text {{isEditing() ? 'p-button-primary' : 'p-button-success'}}"
+                        pButton>
+                    </button>
+                </div>
+            </form>
+        </p-dialog>
+        <app-confirmation></app-confirmation>
+    </div>
+</main>

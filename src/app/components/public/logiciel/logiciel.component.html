@@ -1,0 +1,83 @@
+<app-menu></app-menu>
+<app-carousel></app-carousel>
+<app-text></app-text>
+<app-sous-menu></app-sous-menu>
+<p id="tool-tip"
+  style="font-family:Georgia, 'Times New Roman', Times, serif ; font-size: 20px; text-align: left; margin-left: 20px;margin-top: 70px;margin-bottom: 10px;">
+  LISTES DES LOGICIELS LIBRES DISPONIBLE ET RECOMMANDES</p>
+<app-logic></app-logic>
+<!--<app-footer></app-footer>
+
+
+
+<!--
+
+<br><br>
+<div class="inkindonations-river">
+
+!--   <div id="inkindonations-header">
+
+    <div class="row">
+      <div class="col">
+          <img src="assets/images/harmoirie.png" alt="">
+      </div>
+
+      <div id="inkindonations-header-information" class="col">
+        <p style="text-align: justify">Le Socle Interministériel des logiciels libres ( <b>SILL</b> ) est une liste de logiciels libres qui sont préconisés et promus par l'état Burkinabè dans l'ensemble de ses démembrements, pour garantir sa souveraineté numérique et la mise en place progressive des systèmes d'informations fiables et sécurisés.</p>
+      </div>
+
+    </div>
+
+  </div> --
+
+  <div class="inkindonations-selector">
+
+    <div id="selector-row">
+
+      <form class="d-flex" style="width: 80%">
+          <input  class="form-control me-2" type="search" placeholder="Rechercher un logiciel" aria-label="Search">
+          <button class="btn btn_recherche" type="submit">Rechercher</button>
+        </form>
+    </div>
+
+  </div>
+  <br>
+  <p id="tool-tip">Liste des logiciels libres disponibles</p>
+  <br><br>
+ !-- <p-table [paginator]="true" [rows]="10" [totalRecords]="100">--
+    <p-table #dt [value]="logiciels" [paginator]="true" [rows]="recordsPerPage"  (onLazyLoad)="load($event)" [totalRecords]="totalRecords" [globalFilterFields]="['libelle_pro']" currentPageReportTemplate="Affichage {first} à {last} de {totalRecords} élements"
+    [showCurrentPageReport]=true [rowsPerPageOptions]="[10, 20]" styleClass="p-datatable-sm">
+
+    <ng-template pTemplate="caption">
+        <div class="row">
+         
+            <div class="col text-right">
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($any($event.target)!.value, 'contains')"
+                    placeholder="Recherche..." />
+                </span>
+            </div>
+        </div>
+
+    </ng-template>
+
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="width: 15%">Liste</th>
+            <th style="width: 15%">Logiciels</th>
+            <th style="width: 15%">Libres</th>
+
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-profilutilisateur>
+        <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex" [pContextMenuRow]="logiciel">
+            <td>{{logiciel.libelleLog}} </td>
+          
+        </tr>
+    </ng-template>
+</p-table>
+   !--</p-table>--
+</div>
+<br>
+<app-footer></app-footer>-->
